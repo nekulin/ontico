@@ -63,3 +63,8 @@ Desktop.ini
 .*.sw[a-z]
 *.un~
 Session.vim
+app/protected/config/config.php
+app/assets/
+app/protected/runtime/
+app/themes/classic/views/
+.idea/
