@@ -100,3 +100,11 @@ http://ontico:98/
 RP3. JSON API
 
     php protected/yiic.php  googlemaps search --address=Мира
+
+=====
+
+RP4. Приведите фрагмент кода, который сравнивает два массива и выводит
+разницу в виде
+
+    php protected/yiic.php array  --a='sd sfs sfsf' --b='/tmp/s'
+
