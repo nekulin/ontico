@@ -1,28 +1,68 @@
-CREATE TABLE tbl_user (
-    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    username VARCHAR(128) NOT NULL,
-    password VARCHAR(128) NOT NULL,
-    email VARCHAR(128) NOT NULL
-);
+-- phpMyAdmin SQL Dump
+-- version 3.4.10.1deb1
+-- http://www.phpmyadmin.net
+--
+-- Хост: localhost
+-- Время создания: Мар 15 2014 г., 12:05
+-- Версия сервера: 5.5.28
+-- Версия PHP: 5.5.9-1+sury.org~precise+1
 
-INSERT INTO tbl_user (username, password, email) VALUES ('test1', 'pass1', 'test1@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test2', 'pass2', 'test2@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test3', 'pass3', 'test3@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test4', 'pass4', 'test4@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test5', 'pass5', 'test5@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test6', 'pass6', 'test6@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test7', 'pass7', 'test7@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test8', 'pass8', 'test8@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test9', 'pass9', 'test9@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test10', 'pass10', 'test10@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test11', 'pass11', 'test11@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test12', 'pass12', 'test12@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test13', 'pass13', 'test13@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test14', 'pass14', 'test14@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test15', 'pass15', 'test15@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test16', 'pass16', 'test16@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test17', 'pass17', 'test17@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test18', 'pass18', 'test18@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test19', 'pass19', 'test19@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test20', 'pass20', 'test20@example.com');
-INSERT INTO tbl_user (username, password, email) VALUES ('test21', 'pass21', 'test21@example.com');
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- База данных: `ontico`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `Likes`
+--
+
+CREATE TABLE IF NOT EXISTS `Likes` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `like_id` bigint(20) NOT NULL,
+  `liked_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `like_id` (`like_id`),
+  KEY `liked_id` (`liked_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=102 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `Students`
+--
+
+CREATE TABLE IF NOT EXISTS `Students` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) COLLATE utf8_bin NOT NULL,
+  `grade` tinyint(5) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5001 ;
+
+--
+-- Триггеры `Students`
+--
+DROP TRIGGER IF EXISTS `delete_student`;
+DELIMITER //
+CREATE TRIGGER `delete_student` BEFORE DELETE ON `Students`
+ FOR EACH ROW BEGIN
+  DELETE FROM Likes WHERE like_id=OLD.id;
+  DELETE FROM Likes WHERE liked_id=OLD.id;
+END
+//
+DELIMITER ;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `Likes`
+--
+ALTER TABLE `Likes`
+  ADD CONSTRAINT `Likes_ibfk_3` FOREIGN KEY (`liked_id`) REFERENCES `Students` (`id`),
+  ADD CONSTRAINT `Likes_ibfk_1` FOREIGN KEY (`like_id`) REFERENCES `Students` (`id`),
+  ADD CONSTRAINT `Likes_ibfk_2` FOREIGN KEY (`liked_id`) REFERENCES `Students` (`id`);
