@@ -71,12 +71,15 @@ RP1. Социальная сеть
     php protected/yiic.php social generate
     
 Задание a
+
     php protected/yiic.php social a
 
 Задание b
+
     php protected/yiic.php social b
     
 Задание c
+
     php protected/yiic.php social c
     
 ======
@@ -89,6 +92,11 @@ RP2. Новости
 
 б) Добалять в кеш(память, таблицы и т.д) самые последние новости
 
-Реализация на главнойс странице
+Реализация на главной странице
 http://ontico:98/
 
+=====
+
+RP3. JSON API
+
+    php protected/yiic.php  googlemaps search --address=Мира
